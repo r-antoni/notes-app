@@ -9,6 +9,16 @@ export const getAllUsers = async () => {
     return data
 }
 
+export const getUser = async (userId: number) => {
+    const user = await db.query.users.findMany({
+        where: (users, {eq}) => eq(users.id, userId),
+        with: {
+            todo: true
+        }
+    })
+    return user;
+}
+
 export const addUser = async () => {
     await db.insert(users).values({
         name: "user1",
